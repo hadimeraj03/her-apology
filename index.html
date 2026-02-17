@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Amna 🤍</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --soft-pink: #fce4ec;
+            --deep-pink: #f06292;
+            --accent-pink: #ec407a;
+            --glass: rgba(255, 255, 255, 0.8);
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #fce4ec 0%, #ffebee 50%, #f8bbd0 100%);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            text-align: center;
+            color: #5d4037;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Lockscreen Blur */
+        #lock {
+            position: fixed;
+            inset: 0;
+            background: rgba(255, 182, 193, 0.3);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .lock-card {
+            background: var(--glass);
+            padding: 40px;
+            border-radius: 40px;
+            box-shadow: 0 15px 35px rgba(240, 98, 146, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            width: 85%;
+            max-width: 400px;
+        }
+
+        h1, h2 { font-family: 'Dancing Script', cursive; color: var(--accent-pink); }
+        h1 { font-size: 3rem; margin-bottom: 10px; }
+        h2 { font-size: 2.2rem; }
+
+        .page {
+            display: none;
+            padding: 40px 20px;
+            min-height: 100vh;
+            animation: slideUp 0.8s ease forwards;
+        }
+        .active { display: block; }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .glass-box {
+            background: var(--glass);
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 25px;
+            border-radius: 30px;
+            border: 1px solid rgba(255,255,255,0.5);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+
+        /* Pinterest Layout Gallery */
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        .gallery img {
+            width: 250px;
+            height: 320px;
+            object-fit: cover;
+            border-radius: 20px;
+            border: 8px solid white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.5s ease;
+        }
+
+        /* Creating that "Scrapbook" look with random rotations */
+        .gallery img:nth-child(odd) { transform: rotate(-3deg); }
+        .gallery img:nth-child(even) { transform: rotate(3deg); margin-top: 20px; }
+        .gallery img:hover { transform: scale(1.05) rotate(0deg); z-index: 5; }
+
+        button {
+            padding: 14px 35px;
+            border: none;
+            border-radius: 50px;
+            background: var(--deep-pink);
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            margin: 15px;
+            font-family: 'Poppins', sans-serif;
+        }
+        button:hover { background: var(--accent-pink); transform: scale(1.05); }
+
+        #noBtn {
+            position: fixed;
+            background: #cbd5e0;
+            z-index: 50;
+        }
+
+        /* Confetti Styles */
+        .confetti {
+            position: fixed;
+            z-index: 999;
+            pointer-events: none;
+        }
+
+        select {
+            padding: 12px;
+            border-radius: 15px;
+            border: 1px solid var(--deep-pink);
+            margin: 10px 5px;
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="lock">
+        <div class="lock-card">
+            <h2>Enter The Password Girl 🤍</h2>
+            <p style="font-size: 0.9rem; color: #888;">Select The Most Epic Day You Obviously Forgot 🤦‍♂️</p>
+            <select id="day"></select>
+            <select id="month">
+                <option value="">Month</option>
+                <option>January</option><option>February</option><option>March</option>
+                <option>April</option><option>May</option><option>June</option>
+                <option>July</option><option>August</option><option>September</option>
+                <option>October</option><option>November</option><option>December</option>
+            </select><br>
+            <button onclick="unlock()">Unlock 🤍</button>
+            <p style="font-size: 0.7rem; opacity: 0.6;">* THE DATE WHICH YOU FORGOT YOU DUMBOOO *</p>
+        </div>
+    </div>
+
+    <audio id="music" loop>
+        <source src="song.mp3" type="audio/mp3">
+    </audio>
+
+    <div class="page active" id="p1">
+        <div class="glass-box">
+            <h1>Yo Amna 🤍</h1>
+            <p>
+                I know I’ve been dumb. I messed up. I’m genuinely sorry for how I acted — I really shouldn’t have done that.<br><br>
+                Please forgive me and let’s forget the past. You know I adjust so many things for you… please forget this one mistake for me too.<br><br>
+                I care about you more than my ego. More than my pride. More than this <b>KALESHHHH</b>.<br><br>
+                Honestly, the day feels so empty when we aren't talking properly. I'm truly sorry, and I promise to be better.
+            </p>
+            <button onclick="next(2)">Next</button>
+        </div>
+    </div>
+
+    <div class="page" id="p2">
+        <h1>You Know What I Like The Most 🤍</h1>
+        <div class="glass-box">
+            <p>Your smile, your nature, and your sense of humor. Basically, everything about you.</p>
+        </div>
+        <div class="glass-box">
+            <h3 style="color: var(--accent-pink);">But you know what I love the most...</h3>
+            <p>Annoying you to the point where you want to throw something at me! 😭</p>
+            <p><i>Ohh wait... I meant apologizing to you 🤭</i></p>
+        </div>
+        <button onclick="next(3)">Our Memories 📸</button>
+    </div>
+
+    <div class="page" id="p3">
+        <h1>Moments with My Fav 🌸</h1>
+        <div class="gallery">
+            <img src="img1.jpg" alt="Memory 1">
+            <img src="img2.jpg" alt="Memory 2">
+            <img src="img3.jpg" alt="Memory 3">
+            <img src="img4.jpg" alt="Memory 4">
+            <img src="img5.jpg" alt="Memory 5">
+        </div>
+        <button onclick="next(4)">Final Page</button>
+    </div>
+
+    <div class="page" id="p4">
+        <div class="glass-box">
+            <h1>Will You Forgive Me? 🥺</h1>
+            <p>Please end this KALESHHHH. I promise I won’t repeat it. You mean a lot to me Amna.</p>
+            <div style="margin-top: 50px;">
+                <button id="yesBtn" onclick="celebrate()">Yes 🤍</button>
+                <button id="noBtn">No 😭</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Set up the date selector
+        const daySelect = document.getElementById('day');
+        daySelect.innerHTML = '<option value="">Day</option>';
+        for(let i=1; i<=31; i++) { daySelect.innerHTML += `<option value="${i}">${i}</option>`; }
+
+        function unlock() {
+            let day = document.getElementById("day").value;
+            let month = document.getElementById("month").value;
+            if(day == "12" && month == "January") {
+                document.getElementById("lock").style.transform = "translateY(-100%)";
+                document.getElementById("music").play();
+            } else {
+                alert("Wrong date dumbooo 😭");
+            }
+        }
+
+        function next(n) {
+            document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+            document.getElementById("p" + n).classList.add("active");
+            window.scrollTo(0, 0);
+        }
+
+        // The Moving No Button
+        const noBtn = document.getElementById("noBtn");
+        noBtn.addEventListener("mouseover", () => {
+            const x = Math.random() * (window.innerWidth - 120);
+            const y = Math.random() * (window.innerHeight - 80);
+            noBtn.style.left = x + "px";
+            noBtn.style.top = y + "px";
+        });
+
+        // Party Popper Effect
+        function celebrate() {
+            const colors = ['#f06292', '#ec407a', '#fce4ec', '#ffffff', '#ffd1dc'];
+            for (let i = 0; i < 100; i++) {
+                const conf = document.createElement('div');
+                conf.className = 'confetti';
+                conf.style.left = Math.random() * 100 + 'vw';
+                conf.style.top = '-10px';
+                conf.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                conf.style.width = Math.random() * 10 + 5 + 'px';
+                conf.style.height = Math.random() * 15 + 5 + 'px';
+                conf.style.position = 'fixed';
+                conf.style.borderRadius = '2px';
+                document.body.appendChild(conf);
+
+                const animation = conf.animate([
+                    { transform: `translate3d(0,0,0) rotate(0deg)`, opacity: 1 },
+                    { transform: `translate3d(${Math.random() * 200 - 100}px, 100vh, 0) rotate(${Math.random() * 360}deg)`, opacity: 0 }
+                ], {
+                    duration: Math.random() * 3000 + 2000,
+                    easing: 'cubic-bezier(0, .9, .57, 1)'
+                });
+
+                animation.onfinish = () => conf.remove();
+            }
+            
+            setTimeout(() => {
+                alert("KALESHHHH officially cancelled! 🤍✨\n\nYou're the best, Amna!");
+            }, 500);
+        }
+    </script>
+</body>
+</html>
