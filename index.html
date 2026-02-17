@@ -31,7 +31,7 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* Lockscreen Blur */
+        /* Lockscreen Blur Overlay */
         #lock {
             position: fixed;
             inset: 0;
@@ -56,7 +56,7 @@
         }
 
         h1, h2 { font-family: 'Dancing Script', cursive; color: var(--accent-pink); }
-        h1 { font-size: 3rem; margin-bottom: 10px; }
+        h1 { font-size: 3.5rem; margin-bottom: 10px; }
         h2 { font-size: 2.2rem; }
 
         .page {
@@ -82,14 +82,14 @@
             box-shadow: 0 10px 20px rgba(0,0,0,0.05);
         }
 
-        /* Pinterest Layout Gallery */
+        /* Pinterest Scrapbook Gallery */
         .gallery {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             gap: 20px;
             padding: 20px;
-            max-width: 1000px;
+            max-width: 1100px;
             margin: auto;
         }
 
@@ -103,10 +103,14 @@
             transition: all 0.5s ease;
         }
 
-        /* Creating that "Scrapbook" look with random rotations */
-        .gallery img:nth-child(odd) { transform: rotate(-3deg); }
-        .gallery img:nth-child(even) { transform: rotate(3deg); margin-top: 20px; }
-        .gallery img:hover { transform: scale(1.05) rotate(0deg); z-index: 5; }
+        /* Scrapbook random tilts */
+        .gallery img:nth-child(1) { transform: rotate(-3deg); }
+        .gallery img:nth-child(2) { transform: rotate(2deg); margin-top: 20px; }
+        .gallery img:nth-child(3) { transform: rotate(-2deg); }
+        .gallery img:nth-child(4) { transform: rotate(4deg); margin-top: 10px; }
+        .gallery img:nth-child(5) { transform: rotate(-4deg); }
+
+        .gallery img:hover { transform: scale(1.08) rotate(0deg); z-index: 10; cursor: pointer; }
 
         button {
             padding: 14px 35px;
@@ -119,6 +123,7 @@
             transition: 0.3s;
             margin: 15px;
             font-family: 'Poppins', sans-serif;
+            font-size: 16px;
         }
         button:hover { background: var(--accent-pink); transform: scale(1.05); }
 
@@ -126,9 +131,9 @@
             position: fixed;
             background: #cbd5e0;
             z-index: 50;
+            transition: 0.1s;
         }
 
-        /* Confetti Styles */
         .confetti {
             position: fixed;
             z-index: 999;
@@ -141,6 +146,7 @@
             border: 1px solid var(--deep-pink);
             margin: 10px 5px;
             outline: none;
+            font-family: 'Poppins', sans-serif;
         }
     </style>
 </head>
@@ -149,7 +155,7 @@
     <div id="lock">
         <div class="lock-card">
             <h2>Enter The Password Girl 🤍</h2>
-            <p style="font-size: 0.9rem; color: #888;">Select The Most Epic Day You Obviously Forgot 🤦‍♂️</p>
+            <p style="font-size: 0.9rem; color: #6d4c41;">Select The Most Epic Day You Obviously Forgot 🤦‍♂️</p>
             <select id="day"></select>
             <select id="month">
                 <option value="">Month</option>
@@ -159,7 +165,7 @@
                 <option>October</option><option>November</option><option>December</option>
             </select><br>
             <button onclick="unlock()">Unlock 🤍</button>
-            <p style="font-size: 0.7rem; opacity: 0.6;">* THE DATE WHICH YOU FORGOT YOU DUMBOOO *</p>
+            <p style="font-size: 0.75rem; color: #e75480; margin-top: 15px;">* THE DATE WHICH YOU FORGOT YOU DUMBOOO *</p>
         </div>
     </div>
 
@@ -176,7 +182,7 @@
                 I care about you more than my ego. More than my pride. More than this <b>KALESHHHH</b>.<br><br>
                 Honestly, the day feels so empty when we aren't talking properly. I'm truly sorry, and I promise to be better.
             </p>
-            <button onclick="next(2)">Next</button>
+            <button onclick="next(2)">Next 🌸</button>
         </div>
     </div>
 
@@ -186,7 +192,7 @@
             <p>Your smile, your nature, and your sense of humor. Basically, everything about you.</p>
         </div>
         <div class="glass-box">
-            <h3 style="color: var(--accent-pink);">But you know what I love the most...</h3>
+            <h3 style="color: var(--accent-pink); font-family: 'Dancing Script', cursive; font-size: 2rem;">But you know what I love the most...</h3>
             <p>Annoying you to the point where you want to throw something at me! 😭</p>
             <p><i>Ohh wait... I meant apologizing to you 🤭</i></p>
         </div>
@@ -202,14 +208,14 @@
             <img src="img4.jpg" alt="Memory 4">
             <img src="img5.jpg" alt="Memory 5">
         </div>
-        <button onclick="next(4)">Final Page</button>
+        <button onclick="next(4)">Final Page ✨</button>
     </div>
 
     <div class="page" id="p4">
         <div class="glass-box">
             <h1>Will You Forgive Me? 🥺</h1>
             <p>Please end this KALESHHHH. I promise I won’t repeat it. You mean a lot to me Amna.</p>
-            <div style="margin-top: 50px;">
+            <div style="margin-top: 60px; height: 100px; position: relative;">
                 <button id="yesBtn" onclick="celebrate()">Yes 🤍</button>
                 <button id="noBtn">No 😭</button>
             </div>
@@ -217,29 +223,36 @@
     </div>
 
     <script>
-        // Set up the date selector
+        // Populate Day Dropdown
         const daySelect = document.getElementById('day');
         daySelect.innerHTML = '<option value="">Day</option>';
         for(let i=1; i<=31; i++) { daySelect.innerHTML += `<option value="${i}">${i}</option>`; }
 
+        // Unlock logic with exact music start and volume
         function unlock() {
             let day = document.getElementById("day").value;
             let month = document.getElementById("month").value;
+            
             if(day == "12" && month == "January") {
                 document.getElementById("lock").style.transform = "translateY(-100%)";
-                document.getElementById("music").play();
+                
+                let m = document.getElementById("music");
+                m.currentTime = 59; // Starts at 59 seconds
+                m.volume = 0.5;      // Moderate volume (50%)
+                m.play();
             } else {
                 alert("Wrong date dumbooo 😭");
             }
         }
 
+        // Page Navigation
         function next(n) {
             document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
             document.getElementById("p" + n).classList.add("active");
             window.scrollTo(0, 0);
         }
 
-        // The Moving No Button
+        // Elusive "No" Button logic
         const noBtn = document.getElementById("noBtn");
         noBtn.addEventListener("mouseover", () => {
             const x = Math.random() * (window.innerWidth - 120);
@@ -248,10 +261,10 @@
             noBtn.style.top = y + "px";
         });
 
-        // Party Popper Effect
+        // Party Popper / Confetti Effect
         function celebrate() {
             const colors = ['#f06292', '#ec407a', '#fce4ec', '#ffffff', '#ffd1dc'];
-            for (let i = 0; i < 100; i++) {
+            for (let i = 0; i < 120; i++) {
                 const conf = document.createElement('div');
                 conf.className = 'confetti';
                 conf.style.left = Math.random() * 100 + 'vw';
@@ -265,7 +278,7 @@
 
                 const animation = conf.animate([
                     { transform: `translate3d(0,0,0) rotate(0deg)`, opacity: 1 },
-                    { transform: `translate3d(${Math.random() * 200 - 100}px, 100vh, 0) rotate(${Math.random() * 360}deg)`, opacity: 0 }
+                    { transform: `translate3d(${Math.random() * 400 - 200}px, 100vh, 0) rotate(${Math.random() * 720}deg)`, opacity: 0 }
                 ], {
                     duration: Math.random() * 3000 + 2000,
                     easing: 'cubic-bezier(0, .9, .57, 1)'
@@ -275,8 +288,8 @@
             }
             
             setTimeout(() => {
-                alert("KALESHHHH officially cancelled! 🤍✨\n\nYou're the best, Amna!");
-            }, 500);
+                alert("KALESHHHH officially cancelled! 🤍✨\n\nYou're the best, Amna! Let's never fight again.");
+            }, 600);
         }
     </script>
 </body>
